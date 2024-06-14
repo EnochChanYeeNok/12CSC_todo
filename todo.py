@@ -64,9 +64,9 @@ def edit_item(no):
         cur_data = c.fetchone()
 
         return template('edit_task', old=cur_data, no=no)
-#
-#
-#
+#-----------------------------------------------------------------------------------------------
+#show items
+#------------------------------------------------------------------------------------------------------
 @route('/item<item:re:[0-9]+>')
 def show_item(item):
     conn = sqlite3.connect('todo.db')
@@ -77,4 +77,7 @@ def show_item(item):
     if not result:
         return 'This item number does not exist!'
     else:
-        return 'Task: %s' % result[0]  
+        return 'Task: %s' % result[0]
+#
+#
+#
