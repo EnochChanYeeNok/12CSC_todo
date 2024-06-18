@@ -1,6 +1,6 @@
 #import
 import sqlite3
-from bottle import route, run, debug,template, request
+from bottle import route, run, debug,template, request,static_file, error
 #------------------------------------------------------------------------------------------------------------------------
 #
 #------------------------------------------------------------------------------------------------------------------------
@@ -78,6 +78,36 @@ def show_item(item):
         return 'This item number does not exist!'
     else:
         return 'Task: %s' % result[0]
+#
+#
+#
+@route('/help')
+def help():
+    return static_file('help.html',root='/path/to/file')
+#
+#
+#
+@route('/json<json:re:[0-9]+>')
+def show_json(json):
+    conn = sqlite3.connect('todo.db')
+    c = conn.cursor()
+    c.execute("SELECT task FROM todo WHERE id LIKE ?", (json,))
+    result = c.fetchall()
+    c.close()
+
+    if not result:
+        return {'task': 'This item number does not exist!'}
+    else:
+        return {'task': result[0]}
+#
+#
+#
+@error(404)
+def mistake404(code):
+    return 'Sorry, this page does not exist'
+@error(403)
+def mistake403(code):
+    return 'The parameter you passed has the wrong format'
 #
 #
 #
