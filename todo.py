@@ -2,7 +2,7 @@
 import sqlite3
 from bottle import route, run, debug,template, request,static_file, error
 #------------------------------------------------------------------------------------------------------------------------
-#
+#show item
 #------------------------------------------------------------------------------------------------------------------------
 @route('/todo')
 def todo_list():
@@ -12,8 +12,7 @@ def todo_list():
     result = c.fetchall()
     c.close
     return template('make_table', rows=result)
-debug(True)#only for dev
-run(reloader= True)#reloader only for dev
+
 
 #------------------------------------------------------------------------------------------------------------------------
 #new item
@@ -65,20 +64,9 @@ def edit_item(no):
 
         return template('edit_task', old=cur_data, no=no)
 #-----------------------------------------------------------------------------------------------
-#show items
+
 #------------------------------------------------------------------------------------------------------
-@route('/item<item:re:[0-9]+>')
-def show_item(item):
-    conn = sqlite3.connect('todo.db')
-    c = conn.cursor()
-    c.execute("SELECT task FROM todo WHERE id LIKE ?", (item,))
-    result = c.fetchall()
-    c.close()
-    if not result:
-        return 'This item number does not exist!'
-    else:
-        return 'Task: %s' % result[0]
-#
+
 #
 #
 @route('/help')
@@ -87,18 +75,6 @@ def help():
 #
 #
 #
-@route('/json<json:re:[0-9]+>')
-def show_json(json):
-    conn = sqlite3.connect('todo.db')
-    c = conn.cursor()
-    c.execute("SELECT task FROM todo WHERE id LIKE ?", (json,))
-    result = c.fetchall()
-    c.close()
-
-    if not result:
-        return {'task': 'This item number does not exist!'}
-    else:
-        return {'task': result[0]}
 #
 #
 #
@@ -109,5 +85,7 @@ def mistake404(code):
 def mistake403(code):
     return 'The parameter you passed has the wrong format'
 #
+#Main
 #
-#
+debug(True)#only for dev
+run(reloader= True)#reloader only for dev
