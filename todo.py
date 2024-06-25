@@ -1,6 +1,6 @@
 #import
 import sqlite3
-from bottle import route, run, debug,template, request,static_file, error
+from bottle import route, run, debug,template, redirect, request,static_file, error
 #------------------------------------------------------------------------------------------------------------------------
 #show item
 #------------------------------------------------------------------------------------------------------------------------
@@ -55,7 +55,7 @@ def edit_item(no):
         c.execute("UPDATE todo SET task = ?, status = ? WHERE id LIKE ?", (edit, status, no))
         conn.commit()
 
-        return '<p>The item number %s was successfully updated</p>' % no
+        return redirect('/todo')
     else:
         conn = sqlite3.connect('todo.db')
         c = conn.cursor()
@@ -63,9 +63,10 @@ def edit_item(no):
         cur_data = c.fetchone()
 
         return template('edit_task', old=cur_data, no=no)
+
 #-----------------------------------------------------------------------------------------------
 
-#------------------------------------------------------------------------------------------------------
+#-----------------------------------------------------------------------------------------------
 
 #
 #
@@ -84,8 +85,8 @@ def mistake404(code):
 @error(403)
 def mistake403(code):
     return 'The parameter you passed has the wrong format'
-#
+#-------------------------------------------------------------------------------------------------
 #Main
-#
+#-------------------------------------------------------------------------------------------------
 debug(True)#only for dev
 run(reloader= True)#reloader only for dev

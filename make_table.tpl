@@ -6,6 +6,11 @@
   %for col in row:
     <td>{{col}}</td>
   %end
+  
+<td><a href="/edit/{{row[0]}}"><button>Edit</button></a></td>
+
   </tr>
+
+
 %end
 </table>
