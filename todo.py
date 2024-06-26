@@ -2,8 +2,11 @@
 import sqlite3
 from bottle import route, run, debug,template, redirect, request,static_file, error
 #------------------------------------------------------------------------------------------------------------------------
-#show item
+#showing items
 #------------------------------------------------------------------------------------------------------------------------
+
+
+#opened items
 @route('/todo')
 def todo_list():
     conn = sqlite3.connect('todo.db')
@@ -12,6 +15,17 @@ def todo_list():
     result = c.fetchall()
     c.close
     return template('make_table', rows=result)
+
+
+#closed items
+@route('/closed')
+def closed_list():
+    conn = sqlite3.connect('todo.db')
+    c = conn.cursor()
+    c.execute("SELECT id, task FROM todo WHERE status LIKE '0'")
+    result = c.fetchall()
+    c.close()
+    return template('closed_item', rows=result)
 
 
 #------------------------------------------------------------------------------------------------------------------------
