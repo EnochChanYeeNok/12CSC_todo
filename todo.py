@@ -14,7 +14,7 @@ def todo_list():
     c.execute("SELECT id, task FROM todo WHERE status LIKE '1'")
     result = c.fetchall()
     c.close
-    return template('make_table', rows=result)
+    return template('make_table.html', rows=result)
 
 
 #closed items-------------------------------------------------------------------------------------------------------------
@@ -25,11 +25,11 @@ def closed_list():
     c.execute("SELECT id, task FROM todo WHERE status LIKE '0'")
     result = c.fetchall()
     c.close()
-    return template('closed_item', rows=result)
+    return template('closed_item.html', rows=result)
 
 
 #------------------------------------------------------------------------------------------------------------------------
-#new item----------------------------------------------------------------------------------------------------------------
+#new item ----------------------------------------------------------------------------------------------------------------
 #------------------------------------------------------------------------------------------------------------------------
 @route('/new', method='GET')
 def new_item():
@@ -48,7 +48,7 @@ def new_item():
 
         return redirect('/todo')
     else:
-        return template('new_task.tpl')
+        return template('new_task.html')
 #------------------------------------------------------------------------------------------------------------------------
 # Editing items----------------------------------------------------------------------------------------------------------
 #------------------------------------------------------------------------------------------------------------------------ 
@@ -76,11 +76,24 @@ def edit_item(no):
         c.execute("SELECT task FROM todo WHERE id LIKE ?", (str(no),))
         cur_data = c.fetchone()
 
-        return template('edit_task', old=cur_data, no=no)
+        return template('edit_task.html', old=cur_data, no=no)
 
 #-----------------------------------------------------------------------------------------------
-
+#deleate item(same page as edit)----------------------------------------------------------------
 #-----------------------------------------------------------------------------------------------
+@route('/delete/<no:int>', method='POST')
+def delete_item(no):
+    conn = sqlite3.connect('todo.db')
+    c = conn.cursor()
+    c.execute("DELETE FROM todo WHERE id LIKE ?", (no,))
+    conn.commit()
+    c.close()
+    return redirect('/todo')
+#
+#
+@route('/static/<filename:path>')
+def send_static(filename):
+    return static_file(filename, root='/path/to/static')
 
 #
 #
