@@ -1,6 +1,12 @@
 #import
 import sqlite3
 from bottle import route, run, debug,template, redirect, request,static_file, error
+
+
+#home 
+@route('/')
+def home():
+    return template('home.html')
 #------------------------------------------------------------------------------------------------------------------------
 #showing items-----------------------------------------------------------------------------------------------------------
 #------------------------------------------------------------------------------------------------------------------------
@@ -90,7 +96,7 @@ def delete_item(no):
     c.close()
     return redirect('/todo')
 #
-#
+#connecting to the css file
 @route('/static/<filename:path>')
 def send_static(filename):
     return static_file(filename, root='/path/to/static')
