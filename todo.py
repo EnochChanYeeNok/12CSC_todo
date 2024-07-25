@@ -99,7 +99,7 @@ def delete_item(no):
 #connecting to the css file
 @route('/static/<filename:path>')
 def send_static(filename):
-    return static_file(filename, root='/path/to/static')
+    return static_file(filename, root='/static/')
 
 #
 #
