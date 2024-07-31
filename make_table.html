@@ -1,10 +1,9 @@
 %#template to generate a HTML table from a list of tuples (or list of lists, or tuple of tuples or ...)
 <!DOCTYPE html>
+<link rel="stylesheet" href="static/make_table.css">
 <html>
-<head>
-    <link rel="stylesheet" type="text/css" href="/static/make_table.css">
-</head>
 <body>
+<button onclick="window.location.href='/'">Home</button>
 <p>The open items are as follows:</p>
 <table border="1">
 %for row in rows:

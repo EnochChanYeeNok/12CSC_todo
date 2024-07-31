@@ -97,9 +97,10 @@ def delete_item(no):
     return redirect('/todo')
 #
 #connecting to the css file
+
 @route('/static/<filename:path>')
 def send_static(filename):
-    return static_file(filename, root='/static/')
+    return static_file(filename, root='static/')
 
 #
 #
