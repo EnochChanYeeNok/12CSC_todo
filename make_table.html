@@ -3,16 +3,16 @@
 <link rel="stylesheet" href="static/make_table.css">
 <html>
 <body>
-<button onclick="window.location.href='/'">Home</button>
+<button onclick="window.location.href='/home'">Home</button>
 <p>The open items are as follows:</p>
 <table border="1">
-%for row in rows:
+  %for row in rows:
   <tr>
-  %for col in row:
-    <td>{{col}}</td>
+    %for key, value in row.items():
+    <td>{{value}}</td>
   %end
   
-<td><a href="/edit/{{row[0]}}"><button>Edit</button></a></td>
+<td><a href="/edit/{{row['id']}}"><button>Edit</button></a></td>
 
   </tr>
 
