@@ -1,3 +1,5 @@
+#Code to create the data base
+#import
 import sqlite3
 import json
 

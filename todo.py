@@ -1,11 +1,11 @@
-#import
+#importing libaries
 import sqlite3
 from bottle import route, run, debug, template, redirect, request, static_file, error, response
 import hashlib
 import json
 from functools import wraps
 
-
+#login required
 def login_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
@@ -15,9 +15,10 @@ def login_required(f):
         return f(*args, **kwargs)
     return decorated_function
 
+#data base
 def get_db():
     return sqlite3.connect('todo.db')
-
+#home(landing page)-------------------------------------------------------------------------------------------------------
 @route('/')
 @route('/auth', method=['GET', 'POST'])
 def auth():
