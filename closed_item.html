@@ -10,7 +10,9 @@
   %for row in rows:
   <tr>
     %for key, value in row.items():
-    <td>{{value}}</td>
+    %if key!='status':
+      <td>{{value}}</td>
+    %end
   %end
   
 <td><a href="/edit/{{row['id']}}"><button>Edit</button></a></td>
