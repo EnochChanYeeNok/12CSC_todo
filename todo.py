@@ -1,12 +1,13 @@
 #importing libaries
 import sqlite3
-from bottle import route, run, debug, template, redirect, request, static_file, error, response
+from bottle import route, run, debug, template, redirect, request, static_file, error, response, Bottle
 import hashlib
 import json
 from functools import wraps
 
 #code
 
+app = Bottle()
 #login required
 def login_required(f):
     @wraps(f)
@@ -255,5 +256,5 @@ def mistake403(code):
 #-------------------------------------------------------------------------------------------------
 #Main
 #-------------------------------------------------------------------------------------------------
-debug(True)#only for dev
-run(reloader= True)#reloader only for dev
+
+run(app, host='0.0.0.0', port=8000, server='gunicorn', workers=4)#reloader only for dev
