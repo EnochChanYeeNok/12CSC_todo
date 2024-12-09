@@ -11,6 +11,12 @@
             "src": "/(.*)",
             "dest": "todo.py"
         }
-    ]
+    ],
+    "functions": {
+        "todo.py": {
+            "runtime": "@vercel/python",
+            "timeout": 30
+        }
+    }
 
 }
