@@ -1,4 +1,3 @@
-%#template to generate a HTML table from a list of tuples (or list of lists, or tuple of tuples or......) 
 
 <!DOCTYPE html>
 <link rel="stylesheet" href="static/make_table.css">
@@ -7,20 +6,20 @@
 <button onclick="window.location.href='/home'">Home</button>
 <p>The open items are as follows:</p>
 <table border="1">
-  %for row in rows:
+  {% for row in rows %}
   <tr>
-    %for key, value in row.items():
-      %if key!='status':
+    {% for key, value in row.items() %}
+      {% if key!='status' %}
         <td>{{value}}</td>
-      %end
-  %end
+      {% endif %}
+  {% endfor %}
   
   <td><a href="/edit/{{row['id']}}"><button>Edit</button></a></td>
 
   </tr>
 
 
-%end
+  {% endfor %}
 </table>
 <a href="/new"><button>New</button></a>
 <a href="/closed"><button>view closed itmes</button></a>

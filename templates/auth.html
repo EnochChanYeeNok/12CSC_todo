@@ -24,14 +24,14 @@
                 <input type="submit" value="{{action.capitalize()}}">
             </div>
         </form>
-        % if error:
+        {% if error %}
         <p style="color: red;">{{error}}</p>
-        % end
-        % if action == 'login':
+        {% endif %}
+        {% if action == 'login' %}
             <p>Don't have an account? <a href="/auth?action=signup">Sign up</a> here</p>
-        % elif action == 'signup':
+        {% elif action == 'signup'%}
             <p>Already have an account? <a href="/auth?action=login">Log in</a> here</p>
-        % end
+        {% endif %}
     </div>
 </body>
 </html>
