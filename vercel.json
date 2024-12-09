@@ -11,6 +11,10 @@
             "src": "/(.*)",
             "dest": "todo.py"
         }
-    ]
-
+    ],
+    "functions": {
+        "todo.py": {
+            "command": "gunicorn -w 4 todo:app"
+        }
+    }
 }
